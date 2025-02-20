@@ -2,6 +2,7 @@ package main
 
 import (
 	"item-processor/internal/repository"
+	"item-processor/internal/service"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -33,9 +34,10 @@ func main() {
 	}
 
 	repository := repository.NewRepository(db)
+	service := service.NewService(repository)
 
-	// Stub to avoid "repository declared and not used" error
-	_ = repository
+	// Stub to avoid "service declared and not used" error
+	_ = service
 }
 
 func initConfig() error {
