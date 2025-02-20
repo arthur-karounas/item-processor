@@ -32,8 +32,10 @@ func main() {
 		logrus.Fatalf("failed to initialize db: %s", err.Error())
 	}
 
-	// Stub to avoid "db declared and not used" error
-	_ = db
+	repository := repository.NewRepository(db)
+
+	// Stub to avoid "repository declared and not used" error
+	_ = repository
 }
 
 func initConfig() error {
