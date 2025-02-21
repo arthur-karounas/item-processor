@@ -1,6 +1,7 @@
 package main
 
 import (
+	"item-processor/internal/handler"
 	"item-processor/internal/repository"
 	"item-processor/internal/service"
 	"os"
@@ -35,9 +36,10 @@ func main() {
 
 	repository := repository.NewRepository(db)
 	service := service.NewService(repository)
+	handler := handler.NewHandler(service)
 
-	// Stub to avoid "service declared and not used" error
-	_ = service
+	// Stub to avoid "handler declared and not used" error
+	_ = handler
 }
 
 func initConfig() error {
