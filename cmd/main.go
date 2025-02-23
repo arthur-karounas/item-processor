@@ -4,6 +4,7 @@ import (
 	"item-processor/internal/handler"
 	"item-processor/internal/repository"
 	"item-processor/internal/service"
+	"item-processor/pkg"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -38,8 +39,14 @@ func main() {
 	service := service.NewService(repository)
 	handler := handler.NewHandler(service)
 
-	// Stub to avoid "handler declared and not used" error
-	_ = handler
+	server := new(pkg.Server)
+	go func() {
+		if err := server.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
+			logrus.Fatalf("error occured while running http server: %s", err.Error())
+		}
+	}()
+
+	logrus.Print("Item Processor started")
 }
 
 func initConfig() error {
