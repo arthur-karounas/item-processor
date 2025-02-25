@@ -2,8 +2,7 @@ package pkg
 
 import "github.com/spf13/viper"
 
-func InitConfig() error {
-	viper.AddConfigPath("configs")
-	viper.SetConfigName("config")
+func InitConfig(configPath string) error {
+	viper.SetConfigFile(configPath) // полный путь до файла
 	return viper.ReadInConfig()
 }
