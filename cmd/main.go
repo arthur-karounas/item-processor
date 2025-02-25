@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
 	"item-processor/internal/handler"
 	"item-processor/internal/repository"
 	"item-processor/internal/service"
 	"item-processor/pkg"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
@@ -47,6 +50,20 @@ func main() {
 	}()
 
 	logrus.Print("Item Processor started")
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+	<-quit
+
+	logrus.Print("Item Processor Shutting Down")
+
+	if err := server.Shutdown(context.Background()); err != nil {
+		logrus.Errorf("error occured on server shutting down: %s", err.Error())
+	}
+
+	if err := db.Close(); err != nil {
+		logrus.Errorf("error occured on db connection close: %s", err.Error())
+	}
 }
 
 func initConfig() error {
