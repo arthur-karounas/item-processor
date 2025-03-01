@@ -18,7 +18,7 @@ import (
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
-	if err := pkg.InitConfig(); err != nil {
+	if err := pkg.InitConfig("configs/config.yaml"); err != nil {
 		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
