@@ -5,4 +5,4 @@ db:
     dbname: "postgres-test"
     sslmode: "disable"
 
-port: ":1112"
+port: "1112"
