@@ -47,6 +47,7 @@ require (
 require (
 	github.com/gin-gonic/gin v1.10.1
 	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.9
 	github.com/spf13/viper v1.21.0
 	golang.org/x/sys v0.29.0 // indirect
 )
